@@ -1,7 +1,7 @@
 import { storeCredentials, clearCredentials } from "./credentialStorage";
 import { User } from "./credentialStorage";
+import { validatePassword } from "../../utils/authPolicy";
 
-// Frontend team members
 const LOCAL_USERS = [
   {
     email: "tebogo@test.com",
@@ -49,6 +49,35 @@ export const authService = {
 
     clearCredentials();
     throw new Error("Invalid email or password");
+  },
+
+  async register(email: string, password: string, name: string): Promise<User> {
+    if (LOCAL_USERS.some((u) => u.email === email)) {
+      throw new Error("Email already registered");
+    }
+
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      throw new Error(passwordErrors.join(", "));
+    }
+
+    const newUser = {
+      email,
+      password,
+      user: {
+        id: `${LOCAL_USERS.length + 1}`,
+        name,
+        role: "frontend",
+      },
+    };
+
+    LOCAL_USERS.push(newUser);
+    storeCredentials({
+      token: "local-token",
+      user: newUser.user,
+    });
+
+    return newUser.user;
   },
 
   async logout(): Promise<void> {

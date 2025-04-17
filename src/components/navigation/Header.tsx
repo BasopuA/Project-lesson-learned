@@ -6,14 +6,25 @@ import {
   Badge,
   Box,
   Avatar,
+  Button,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
   Notifications as NotificationsIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import { useAuth } from "../../features/auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -36,6 +47,9 @@ const Header = () => {
             </Badge>
           </IconButton>
           <Avatar sx={{ ml: 2 }}>U</Avatar>
+          <Button color="inherit" onClick={handleLogout} sx={{ ml: 2 }}>
+            Logout
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>

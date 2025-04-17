@@ -1,19 +1,20 @@
-// src/routes/AppRoutes.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
-import Layout from "../../src/components/navigation/Layout";
-import DashboardPage from "../../src/pages/DashboardPage";
-import LessonsPage from "../../src/pages/LessonsPage";
-import ProjectsPage from "../../src/pages/ProjectPage";
-import ReportsPage from "../../src/pages/ReportsPage";
-import LoginPage from "../../src/pages/LoginPage";
-import ProtectedRoute from "../../src/features/auth/ProtectedRoute";
-import LessonDetailPage from "../../src/pages/LessonDetailPage";
-import AdminPage from "../../src/pages/AdminPage";
+import Layout from "../components/navigation/Layout";
+import DashboardPage from "../pages/DashboardPage";
+import LessonsPage from "../pages/LessonsPage";
+import ProjectPage from "../pages/ProjectPage";
+import ReportsPage from "../pages/ReportsPage";
+import LoginPage from "../pages/LoginPage";
+import RegistrationPage from "../pages/RegistrationPage";
+import ProtectedRoute from "../features/auth/ProtectedRoute";
+import LessonDetailPage from "../pages/LessonDetailPage";
+import AdminPage from "../pages/AdminPage";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegistrationPage />} />
       <Route element={<Layout />}>
         <Route
           path="/dashboard"
@@ -43,7 +44,7 @@ const AppRoutes = () => {
           path="/projects"
           element={
             <ProtectedRoute>
-              <ProjectsPage />
+              <ProjectPage />
             </ProtectedRoute>
           }
         />

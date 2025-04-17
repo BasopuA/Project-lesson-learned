@@ -37,7 +37,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setCredentials({
           user: savedCredentials.user,
           token: savedCredentials.token,
-        }),
+        })
       );
     }
   }, [dispatch]);
@@ -54,7 +54,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setCredentials({
         user: testUser,
         token: "local-token",
-      }),
+      })
     );
     return testUser;
   };
@@ -66,7 +66,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setCredentials({
         user: null,
         token: null,
-      }),
+      })
     );
   };
 

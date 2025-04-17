@@ -10,6 +10,7 @@ import {
   IconButton,
   Fade,
   styled,
+  Link,
 } from "@mui/material";
 import {
   Lock,
@@ -21,7 +22,7 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../features/auth/AuthProvider";
+import { useAuth } from "../features/auth/useAuth";
 import { useState } from "react";
 import { passwordPolicy, validatePassword } from "../utils/authPolicy";
 
@@ -51,7 +52,7 @@ const validationSchema = yup.object({
     .test(
       "password-complexity",
       "Password doesn't meet security requirements",
-      (value) => validatePassword(value || "").length === 0,
+      (value) => validatePassword(value || "").length === 0
     )
     .required("Required"),
 });
@@ -187,7 +188,7 @@ export default function LoginPage() {
               >
                 <TextField
                   fullWidth
-                  label="Email"
+                  label="SARAO Email"
                   name="email"
                   autoComplete="email"
                   value={formik.values.email}
@@ -243,32 +244,6 @@ export default function LoginPage() {
                   }}
                 />
 
-                <Box sx={{ mb: 2, mt: 1 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    Password Requirements:
-                  </Typography>
-                  <Box
-                    component="ul"
-                    sx={{
-                      pl: 2,
-                      mt: 0.5,
-                      "& li": {
-                        fontSize: "0.75rem",
-                        color: formik.touched.password
-                          ? theme.palette.text.secondary
-                          : theme.palette.grey[500],
-                      },
-                    }}
-                  >
-                    <li>Minimum {passwordPolicy.minLength} characters</li>
-                    <li>At least one uppercase letter</li>
-                    <li>At least one number</li>
-                    <li>
-                      One special character ({passwordPolicy.specialChars})
-                    </li>
-                  </Box>
-                </Box>
-
                 <Button
                   type="submit"
                   fullWidth
@@ -292,6 +267,25 @@ export default function LoginPage() {
                 >
                   {isSubmitting ? "VERIFYING CREDENTIALS..." : "AUTHENTICATE"}
                 </Button>
+              </Box>
+
+              <Box sx={{ textAlign: "center", mt: 1 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Don't have an account?{" "}
+                  <Link
+                    href="/register"
+                    color="primary"
+                    sx={{
+                      fontWeight: 600,
+                      textDecoration: "none",
+                      "&:hover": {
+                        textDecoration: "underline",
+                      },
+                    }}
+                  >
+                    Register here
+                  </Link>
+                </Typography>
               </Box>
             </Box>
           </SciGlassCard>
